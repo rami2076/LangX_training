@@ -27,4 +27,5 @@ cd langx_tutorial
 # https://pypi.org/project/langchain/0.3.25/
 # 現在の最新は0.3.25
 uv add --verbose "langchain[anthropic]"
+uv run main.py
 ```
