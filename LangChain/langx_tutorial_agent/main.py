@@ -20,16 +20,23 @@ print("################")
 
 # Create the agent
 memory = MemorySaver()
-model = ChatAnthropic(model_name="claude-3-5-sonnet-latest")
-search = TavilySearchResults(max_results=2)
+model = ChatAnthropic(model_name="claude-3-7-sonnet-latest")
+search = TavilySearchResults(max_results=3)
 tools = [search]
 agent_executor = create_react_agent(model, tools, checkpointer=memory)
 
 # Use the agent
-config = {"configurable": {"thread_id": "abc123"}}
+# config = {"configurable": {"thread_id": "abc123"}}
+config = {"configurable": {"thread_id": "abc1234"}}
 for step in agent_executor.stream(
-        {"messages": [HumanMessage(content="hi im bob! and i live in sf")]},
+        {"messages": [HumanMessage(content="whats the weather where I live?")]},
         config,
         stream_mode="values",
 ):
     step["messages"][-1].pretty_print()
+# for step in agent_executor.stream(
+#         {"messages": [HumanMessage(content="I live in matsudo in Japan")]},
+#         config,
+#         stream_mode="values",
+# ):
+#     step["messages"][-1].pretty_print()

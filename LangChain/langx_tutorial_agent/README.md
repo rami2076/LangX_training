@@ -50,4 +50,8 @@ anthropic.NotFoundError: Error code: 404 - {'type': 'error', 'error': {'type': '
 # https://docs.anthropic.com/en/docs/about-claude/models/overview
 # 実行
 uv run main.py
+# エラー発生
+anthropic.APIConnectionError: Connection error.
+# tavilyの検索回数の問題でした
+#ここから次回やる
 ```
