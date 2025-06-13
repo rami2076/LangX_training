@@ -1,18 +1,25 @@
 import os
 from langchain_anthropic import ChatAnthropic
-from langchain.schema import HumanMessage
+from langchain.schema import HumanMessage, AIMessage
 
-# 環境変数から API キーを読み込む
+# APIキー取得
 api_key = os.environ.get("ANTHROPIC_API_KEY")
 if not api_key:
     raise RuntimeError("ANTHROPIC_API_KEY is not set in the environment.")
 
-# Claude モデル（例: claude-3-opus）を使用
 llm = ChatAnthropic(model="claude-3-7-sonnet-latest", api_key=api_key)
+
+# 会話履歴
+messages = []
 
 while True:
     prompt = input("> ")
     if prompt == "":
         break
-    response = llm.invoke([HumanMessage(content=prompt)])
+
+    messages.append(HumanMessage(content=prompt))
+    response = llm.invoke(messages)
     print(response.content)
+
+    # Claudeの返答を履歴に追加
+    messages.append(AIMessage(content=response.content))
